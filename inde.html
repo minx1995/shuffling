@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	.blue {
+		color: blue;
+	}
+	.imgs {
+		display: flex;
+		align-items: flex-start;
+		transition: 0.5s;
+	}
+	.imgs > img{
+		vertical-align: top;
+	}
+	.window{
+		overflow: hidden;	
+		width: 300px;
+	}
+	</style>
+</head>
+<body>
+	<div class="window">
+	<div class="imgs" id="imgs">
+		<img src="http://pic.2265.com/upload/2017-7/2017724824383047.png" alt="" width=300>
+		<img src="https://img.shouji.com.cn/simg/20170626/7987928009.jpg" alt="" width=300>	
+		<img src="http://www.whhost.net/uploads/20180209/18/1518173911-kYFnyzeNav.jpg" alt="" width=300>
+		<img src="https://img.shouji.com.cn/simg/20170626/7987928009.jpg" alt="" width=300>			
+
+	</div>
+		  <span id=buttons>
+    	<span>第1张</span>
+   		<span>第2张</span>
+   		 <span>第3张</span>
+    	<span>第4张</span>
+ 		 </span>
+	</div>
+
+</body>
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script>
+	var allbuttons = $('#buttons > span')
+	for (let i = 0; i < allbuttons.length;i++){
+		$(allbuttons[i]).on('click',function(x){
+			var index = $(x.currentTarget).index()
+			var p = index * -300
+			$('#imgs').css({
+				transform:'translateX(' + p + 'px)'
+			})
+
+					n = index
+					allbuttons.eq(n)
+					.addClass('blue')
+					.siblings('.blue').removeClass('blue')
+		}	)
+	}
+	var n = 0;
+	var z = allbuttons.length
+	var time = setInterval(function(){
+		n = n + 1 
+		allbuttons.eq(n % z).trigger('click')
+		.addClass('blue')
+		.siblings('.blue').removeClass('blue')
+	},1000)
+	$('.window').on('mouseenter',function(){
+		 window.clearInterval(time)
+	})
+		$('.window').on('mouseleave',function(){
+	time = setInterval(function(){
+		n = n + 1 
+		allbuttons.eq(n % z).trigger('click')
+		.addClass('blue')
+		.siblings('.blue').removeClass('blue')
+	},1500)
+	})
+
+	</script>
+</html>
